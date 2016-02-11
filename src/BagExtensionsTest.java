@@ -55,6 +55,7 @@ public class BagExtensionsTest {
 
         checkEquals();
         checkRemove();
+        System.exit(0);
         checkDuplicateAll();
         checkRemoveDuplicates();
     }

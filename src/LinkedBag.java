@@ -1,3 +1,4 @@
+import java.util.Random;
 
 /**
 A class of bags whose entries are stored in a chain of linked nodes.
@@ -129,6 +130,7 @@ public final class LinkedBag<T> implements BagInterface<T> {
         while (!isEmpty()) {
             remove();
         }
+        //System.out.println("********** CLEAR **********");
     } // end clear
 
     private class Node {
@@ -151,16 +153,45 @@ public final class LinkedBag<T> implements BagInterface<T> {
     or null. */
     public T remove() {
         T result = null;
+        /*T[] display = toArray();
+        for (int j = 0; j < display.length; j++) {
+        	System.out.println(display[j]);
+        }*/
+        //System.out.println(numberOfEntries);
+        //System.out.println(this.toString());
+        Random rng = new Random();
 
-        // MODIFY THIS METHOD TO REMOVE A RANDOM ITEM FROM THE BAG
-
-        if (firstNode != null) {
-            result = firstNode.data;
-            firstNode = firstNode.next; // Remove first node from chain
-            numberOfEntries--;
-        } // end if
-
-
+    	Node scout = firstNode;
+    	
+        if (numberOfEntries <= 0) {
+        	return result; // Do nothing
+        } else if (numberOfEntries == 1) {
+        	int index = 0;
+        	T[] temp = toArray();
+        	//System.out.println("Removing: "+temp[index]);
+        	result = temp[index];
+        	boolean success = remove(temp[index]);
+        	//System.out.println(success);
+        } else {
+        	int index = rng.nextInt(numberOfEntries-1);
+        	//System.out.println("Index: "+index);
+        	if (!isEmpty() && index >= 0){
+        		for (int i = 0; i < index; i++) {
+        			scout = scout.next;
+            	}
+            	result = scout.data;
+            	//System.out.println("Result: "+result);
+            	scout.data = firstNode.data;
+            	//System.out.println("Scout: "+scout.data);
+        		
+        	}
+        	if (firstNode != null) {
+        		firstNode = firstNode.next;
+        		//System.out.println("First: "+firstNode.data);
+        		numberOfEntries--;
+        		
+            } // end if
+        }
         return result;
     } // end remove
 
