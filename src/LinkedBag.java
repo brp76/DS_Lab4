@@ -281,8 +281,54 @@ public final class LinkedBag<T> implements BagInterface<T> {
     /** Remove all duplicate items from a bag
      */
     public void removeDuplicates() {
-
-        // COMPLETE THIS METHOD 
+    	System.out.print("Initial > ");
+    	System.out.println(this.toString());
+    	LinkedBag<T> newBag = new LinkedBag<T>();
+    	
+    	if (numberOfEntries == 0) {
+    		return; // Do nothing
+    	}
+    	
+    	// Create filler values to avoid null pointer
+        for (int k = 0; k < numberOfEntries; k++) {
+        	
+        	newBag.add((T)"_");
+        }
+        
+        Node scout = firstNode;
+        Node replace = newBag.firstNode;
+        
+        int i = 0;
+        while ((i < numberOfEntries) && (scout != null)) {
+        	int  j = 0;
+        	while ((j < numberOfEntries) && (replace != null)) {
+        		if (newBag.contains(scout.data)) { // Already contains value
+        			break; // Do nothing
+        		} else { // Does not have value
+        			// Add value
+        			replace.data = scout.data;
+        			replace = replace.next;
+        			j++;
+        		}
+    		}
+        	if (scout != null) {
+        		scout = scout.next;
+            	i++;
+        	}
+        	
+        }
+        
+        // Remove filler values
+        Node newScout = newBag.firstNode;
+        while (newBag.contains((T)"_")) {
+        	newBag.remove((T)"_");
+        }
+        
+        this.firstNode = newBag.firstNode;
+        this.numberOfEntries = newBag.numberOfEntries;
+    	
+        System.out.print("Final   > ");
+    	System.out.println(toString());
 
         return;
     }  // end removeDuplicates
