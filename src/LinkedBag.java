@@ -109,9 +109,9 @@ public final class LinkedBag<T> implements BagInterface<T> {
         return result;
     } // end remove
 
-// Locates a given entry within this bag.
-// Returns a reference to the node containing the entry, if located,
-// or null otherwise.
+    /** Locates a given entry within this bag.
+     * Returns a reference to the node containing the entry, if located,
+     * or null otherwise. */
     private Node getReferenceTo(T anEntry) {
         boolean found = false;
         Node currentNode = firstNode;
@@ -195,7 +195,33 @@ public final class LinkedBag<T> implements BagInterface<T> {
     public boolean equals(LinkedBag<T> aBag) {
         boolean result = false; // result of comparison of bags
 
-        // COMPLETE THIS METHOD 
+        if (this.numberOfEntries == aBag.numberOfEntries) {
+        	if (numberOfEntries == 0) {
+        		return true;
+        	}
+        	int i = 0, j = 0;
+        	Node scout = firstNode;
+        	Node retrieve = aBag.firstNode;
+        	while ((i < numberOfEntries) && (scout != null)) {
+        		while ((j < aBag.numberOfEntries) && (retrieve != null)) {
+        			if (scout.data.equals(retrieve.data)) {
+        				int freq1 = this.getFrequencyOf(scout.data);
+        				int freq2 = this.getFrequencyOf(retrieve.data);
+        				if (freq1 == freq2) {
+        					result = true;
+        				} else {
+        					result = false;
+        				}
+        			} // end if
+        			retrieve = retrieve.next;
+        			j++;
+        		}
+        		scout = scout.next;
+        		i++;
+        	} // end while	
+        } else {
+        	result = false;
+        }
 
         return result;
     }  // end equals
