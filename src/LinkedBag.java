@@ -265,7 +265,15 @@ public final class LinkedBag<T> implements BagInterface<T> {
                                 // if there is a problem allocating nodes
                                 // an exception will be thrown
 
-        // COMPLETE THIS METHOD 
+        Node scout = firstNode;
+        int i = 0;
+        while (i < numberOfEntries) {
+        	Node temp = new Node(scout.data, firstNode);
+        	firstNode = temp;
+        	scout = scout.next;
+        	i++;
+        }
+        numberOfEntries *= 2;
 
         return success;
     }  // end duplicateAll
